@@ -1,13 +1,14 @@
 <?php
 
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Stream;
 use Meng\Soap\HttpBinding\HttpBinding;
 use Meng\Soap\HttpBinding\RequestBuilder;
 use Meng\Soap\HttpBinding\RequestException;
 use Meng\Soap\Interpreter;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Stream;
+use PHPUnit\Framework\TestCase;
 
-class HttpBindingTest extends PHPUnit_Framework_TestCase
+class HttpBindingTest extends TestCase
 {
     /**
      * @test
@@ -73,10 +74,10 @@ EOD;
 
     /**
      * @test
-     * @expectedException Meng\Soap\HttpBinding\RequestException
      */
     public function requestBindingFailed()
     {
+        $this->expectException(Meng\Soap\HttpBinding\RequestException::class);
         $interpreter = new Interpreter(null, ['uri' => '', 'location' => '']);
         $builderMock = $this->getMockBuilder('Meng\Soap\HttpBinding\RequestBuilder')
             ->setMethods(['getSoapHttpRequest'])
